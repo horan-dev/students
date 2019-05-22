@@ -1,0 +1,23 @@
+<div>
+    <h2>Add Studen</h2>
+    <div>
+      <label>First Name:
+        <input [(ngModel)]="student.name" placeholder=" Name"/>
+      </label><br>
+      <label>Surename :
+        <input [(ngModel)]="student.surename" placeholder="Surename"/>
+      </label><br>
+
+
+      <label>Classroom:    
+              <select  [(ngModel)]="student.classroomId"  class="mdb-select md-form">
+                  <option  [value]="item.id" *ngFor="let item of classrooms">{{item.name}}</option>
+                </select>
+        </label><br>
+  
+    </div>
+    <!-- <button (click)="add()">Save</button> -->
+    <a (click)="add()" href="" routerLink="/students" class="btn btn-primary">Save <i class="fa fa-info-circle" ></i>
+    </a>
+  </div>
+  

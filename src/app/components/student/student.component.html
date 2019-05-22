@@ -1,0 +1,53 @@
+<div class="row">
+
+  
+  
+  <div *ngIf="students?.length>0 ; else elseBlock">
+  
+  
+  
+        <table class="table table-inverse">
+            <thead>
+              <tr>
+               <th>Name</th>
+                <th>Surename</th>
+                <th>Class</th>
+  
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of students">
+                <th>{{item.name}}</th>
+                <th>{{item.surename}}</th>
+                <th>{{item.classroomId}}</th>
+  
+                <th> 
+                  <a (click)="deleteStudent(item.id)" href="" routerLink="/students" class="btn button">delete <i class="fa fa-info-circle" ></i>
+                </a>
+  
+                <a  href="" routerLink="/students/edit/{{item.id}}" class="btn button">edit <i class="fa fa-info-circle" ></i>
+                </a>
+
+              </th>
+  
+              </tr>
+            </tbody>
+          </table>
+  
+      <a href="" routerLink="/students/create" class="btn btn-primary">Create <i class="fa fa-info-circle" ></i>
+               </a>
+  
+  
+  
+  
+  
+  
+  
+    </div>
+  
+    <ng-template #elseBlock><h2>OOPS ! empty database</h2></ng-template>
+  
+  
+  
+  
