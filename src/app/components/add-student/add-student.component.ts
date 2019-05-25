@@ -19,7 +19,7 @@ export class AddStudentComponent implements OnInit {
   };
   classForm: FormGroup;
   classrooms=[]
-  constructor(public studentService : StudentService,public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router) {
+  constructor(public fashMessagesService : FlashMessagesService,public studentService : StudentService,public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router) {
     this.classroomService.getClassrooms().subscribe(classrooms =>{
       this.classrooms = classrooms;
      console.log(classrooms);
@@ -37,6 +37,7 @@ export class AddStudentComponent implements OnInit {
     this.studentService.createStudent(this.student).subscribe((result) => {
       this.router.navigate(['students']);
       console.log("add");
+      this.fashMessagesService.show('Thanks new student added successfully !',{cssClass:'alert-success',timeout:6000});
     }, (err) => {
       this.router.navigate(['student/create']);
       console.log(err);

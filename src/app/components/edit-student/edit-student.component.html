@@ -1,12 +1,33 @@
 <div>
     <h2>update Class Room</h2>
-    <div>
+    <div class="form-group">
+        <label>First Name:
+          <input 
+          type="text"
+     
+          name="name"
+          #studentName="ngModel"
+          required
+          minlength="4"
+          [(ngModel)]="student.name" placeholder=" Name"/>
+          <div *ngIf="studentName.errors?.required && studentName.touched" class="alert alert-danger"> First name is required</div>
+  
+          <div *ngIf="studentName.errors?.minlength && studentName.touched" class="alert alert-danger"> need at least 4 chars</div>
+    
+        </label>
+      </div>
+
+    <!-- <div>
       <label>First Name:
         <input [(ngModel)]="student.name" placeholder=" Name"/>
-      </label><br>
+      </label>
+    </div> -->
+    <div>
       <label>Surename :
         <input [(ngModel)]="student.surename" placeholder="Surename"/>
-      </label><br>
+      </label>
+    </div>
+    <div>
       <label>Classroom:    
           <select  [(ngModel)]="student.classroomId"  class="mdb-select md-form">
               <option  [value]="item.id" *ngFor="let item of classrooms">{{item.name}}</option>

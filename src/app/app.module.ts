@@ -24,6 +24,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
 import { ClassroomStudentsComponent } from './components/classroom-students/classroom-students.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCheckboxModule} from '@angular/material';
+
 // import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 // import 'bootstrap/dist/css/bootstrap.css';
 const appRoutes: Routes=[
@@ -55,7 +59,8 @@ const appRoutes: Routes=[
     AddStudentComponent,
     EditStudentComponent,
     ConfirmationDialogComponent,
-    ClassroomStudentsComponent
+    ClassroomStudentsComponent,
+    SidebarComponent
   ],
   imports: [
     MatDialogModule,
@@ -65,6 +70,9 @@ const appRoutes: Routes=[
     HttpClientModule,
     FormsModule,
     HttpModule,
+    NoopAnimationsModule,
+    MatCheckboxModule,
+
     // FlashMessagesModule,
     FlashMessagesModule.forRoot(),
     // ConfirmationPopoverModule.forRoot({

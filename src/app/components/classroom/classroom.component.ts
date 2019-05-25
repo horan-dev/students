@@ -24,6 +24,7 @@ export class ClassroomComponent implements OnInit {
 
   }
   deleteClassroom(id){
+    if(confirm("Are you sure ! :(")){
     console.log(id);
     this.classroomService.deleteClassRoom(id).subscribe((result) => {
       let temp=[]
@@ -35,6 +36,8 @@ export class ClassroomComponent implements OnInit {
       }
       this.classrooms=temp;
       console.log("deleted");
+      this.flashMessagesService.show("Student Deleted successfully !  ",{cssClass:'alert-success',timeout:6000});
+     
     }, (err) => {
       this.flashMessagesService.show('this class related with students',{cssClass:'alert-danger',timeout:6000});
       this.router.navigate(['classrooms']);
@@ -44,7 +47,7 @@ export class ClassroomComponent implements OnInit {
     this.router.navigate(['classrooms']);
     // this.flashMessagesService.show('this class related with students',{cssClass:'alert-danger',timeout:12000});
     // this.router.navigate(['classrooms']);
-  }
+  }}
 
 
   students(classroomID){

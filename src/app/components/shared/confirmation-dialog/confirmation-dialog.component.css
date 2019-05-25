@@ -1,0 +1,24 @@
+.mat-dialog-container {
+    display: flex !important;
+    flex-direction: column;
+}
+
+.mat-dialog-container > * {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-dialog-content1 {
+    /* max-height: inherit !important; */
+    padding-left: "150px";
+}
+
+.mat-dialog-actions1 {
+    padding-left: "150px";
+    /* display: block !important;
+    flex-grow: inherit;
+    flex-shrink: inherit;
+    padding: 12px 0 0 !important; */
+
+  
+}

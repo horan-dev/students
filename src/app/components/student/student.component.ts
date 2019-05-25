@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { ClassroomService } from '../../services/classroom.service';
 
-
+import { FlashMessagesService} from 'angular2-flash-messages';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../../components/shared/confirmation-dialog/confirmation-dialog.component';
-// import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -16,30 +15,26 @@ export class StudentComponent implements OnInit {
   searchValue=""
   classrooms={}
   students:any[];
-  constructor( public studentService : StudentService,public classroomService : ClassroomService,public dialog: MatDialog) { 
-    if (this.isEmptyObject(this.classrooms)){
-      console.log("inside");
-      this.classroomService.getClassrooms().subscribe(classrooms =>{
-        for (let index = 0; index < classrooms.length; index++) {
-          this.classrooms[classrooms[index].id]=classrooms[index];
-          // this.classrooms[classrooms[index].id]="ahmad";
-        }
+  constructor( public flashMessagesService : FlashMessagesService,public studentService : StudentService,public classroomService : ClassroomService,public dialog: MatDialog) { 
   
-      });
+    // if (this.isEmptyObject(this.classrooms)){
+    //   console.log("inside");
+    //   this.classroomService.getClassrooms().subscribe(classrooms =>{
+    //     for (let index = 0; index < classrooms.length; index++) {
+    //       this.classrooms[classrooms[index].id]=classrooms[index];
+    //     }
+  
+    //   });
       
-    }
+    // }
 
-    console.log("classrooms");
-    console.log(this.classrooms);
-    let temp=[]
+    // console.log("classrooms");
+    // console.log(this.classrooms);
+    // let temp=[]
     this.studentService.getStudents().subscribe(s =>{
-      for (let index = 0; index < s.length; index++) {
-        const element = s[index];
-        element["classroom"]=this.classrooms[element.classroomId]
-        temp.push(element);
-      }
+
      
-      this.students = temp;
+      this.students = s;
      console.log(this.students);
      
     });
@@ -51,6 +46,7 @@ export class StudentComponent implements OnInit {
   }
   deleteStudent(id){
     console.log(id);
+    if(confirm("Are you sure ! :(")){
     this.studentService.deleteStudent(id).subscribe((result) => {
       let temp=[]
       for (let index = 0; index < this.students.length; index++) {
@@ -60,11 +56,14 @@ export class StudentComponent implements OnInit {
         
       }
       this.students=temp;
+      this.flashMessagesService.show("Student Deleted successfully !  ",{cssClass:'alert-success',timeout:6000});
+     
       console.log("deleted");
     }, (err) => {
       console.log("error");
       console.log(err);
     });
+  }
   }
 
 
@@ -79,13 +78,8 @@ export class StudentComponent implements OnInit {
     let temp=[]
     if(this.searchValue){
       this.studentService.search(this.searchValue).subscribe((result) => {
-        for (let index = 0; index <result.length; index++) {
-          const element =result[index];
-          element["classroom"]=this.classrooms[element.classroomId]
-          temp.push(element);
-        }
-       
-        this.students = temp;
+
+        this.students = result;
       }, (err) => {
      
       });
@@ -93,13 +87,9 @@ export class StudentComponent implements OnInit {
     else{
    
       this.studentService.getStudents().subscribe(s =>{
-        for (let index = 0; index < s.length; index++) {
-          const element = s[index];
-          element["classroom"]=this.classrooms[element.classroomId]
-          temp.push(element);
-        }
+
        
-        this.students = temp;
+        this.students = s;
        console.log(this.students);
        
       });
@@ -109,11 +99,10 @@ export class StudentComponent implements OnInit {
     openDialog(id): void {
 
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        // height:"800px",
-        // width: '350px',
+      
         panelClass: 'my-centered-dialog',
         width: '512px',
-        // position:ScreenOrientation,
+        // padding-left: 0,
         data: "Do you confirm the deletion of this data?"
       });
       dialogRef.afterClosed().subscribe(result => {
@@ -126,9 +115,5 @@ export class StudentComponent implements OnInit {
       });
     }
 
-  // public openConfirmationDialog() {
-  //   this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
-  //   .then((confirmed) => console.log('User confirmed:', confirmed))
-  //   .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  // }
+
 }
