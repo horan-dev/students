@@ -11,12 +11,34 @@ export class StudentService {
   constructor(public http:Http) {
 
    }
-
+   search(val){
+    console.log(this.endpoint);
+     return this.http.get
+     (this.endpoint+'/students/search/'+val)
+       .map(res=>res.json(),err=>{
+         console.log(err);
+       })
+     ;
+    
+   }
 
   getStudents(){
     console.log(this.endpoint);
      return this.http.get
      (this.endpoint+'/students')
+       .map(res=>res.json(),err=>{
+         console.log(err);
+       })
+     ;
+    
+   }
+
+   getClassroomStudents(classroomId){
+
+    console.log(this.endpoint);
+    console.log(classroomId);
+     return this.http.get
+     (this.endpoint+'/classroom/students/'+classroomId)
        .map(res=>res.json(),err=>{
          console.log(err);
        })

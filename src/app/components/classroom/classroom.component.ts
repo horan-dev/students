@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
  import { ClassroomService } from '../../services/classroom.service';
+ import { ActivatedRoute, Router } from '@angular/router';
+import { FlashMessagesService} from 'angular2-flash-messages';
 @Component({
   selector: 'app-classroom',
   templateUrl: './classroom.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClassroomComponent implements OnInit {
   classrooms:any[];
-  constructor( public classroomService : ClassroomService) { 
+  searchValue=""
+  constructor( public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router
+    , public flashMessagesService:FlashMessagesService) { 
     this.classroomService.getClassrooms().subscribe(classrooms =>{
       this.classrooms = classrooms;
      console.log(classrooms);
@@ -32,9 +36,21 @@ export class ClassroomComponent implements OnInit {
       this.classrooms=temp;
       console.log("deleted");
     }, (err) => {
+      this.flashMessagesService.show('this class related with students',{cssClass:'alert-danger',timeout:6000});
+      this.router.navigate(['classrooms']);
       console.log("error");
       console.log(err);
     });
+    this.router.navigate(['classrooms']);
+    // this.flashMessagesService.show('this class related with students',{cssClass:'alert-danger',timeout:12000});
+    // this.router.navigate(['classrooms']);
+  }
+
+
+  students(classroomID){
+ console.log(classroomID)
+    this.router.navigate(['classrooms/'+classroomID+'/students']);
+
   }
 
 }

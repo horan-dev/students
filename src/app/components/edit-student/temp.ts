@@ -19,9 +19,7 @@ export class EditStudentComponent implements OnInit {
     classroomId:""
   };
   classrooms=[]
-  constructor(public studentService : StudentService,public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router
-    , public flashMessagesService:FlashMessagesService
-    ) {
+  constructor(public studentService : StudentService,public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router, public flashMessagesService:FlashMessagesService,) {
   this.id=this.route.snapshot.params['id'];
     this.studentService.getByID(this.id).subscribe((result) => {
 
@@ -45,12 +43,11 @@ export class EditStudentComponent implements OnInit {
     console.log("this.student");
     console.log(this.student);
     this.studentService.updateStudent(this.id,this.student).subscribe((result) => {
-      this.router.navigate(['students']);
-      console.log("save");
-      // this.router.navigate(['students/edit/'+this.id]);
+      // this.router.navigate(['students']);
+      // console.log("save");
     }, (err) => {
-      this.flashMessagesService.show('Please write correct info',{cssClass:'alert-danger',timeout:6000});
-      this.router.navigate(['students/edit/'+this.id]);
+      // this.flashMessagesService.show('Please write correct info',{cssClass:'alert-danger',timeout:6000});
+      // this.router.navigate(['students/edit/'+this.id]);
     });
     // this.flashMessagesService.show('Employee updated successfully !',{cssClass:'alert-success',timeout:6000});
 

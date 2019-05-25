@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClassroomService } from '../../services/classroom.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-edit-classroom',
   templateUrl: './edit-classroom.component.html',
@@ -28,9 +29,10 @@ export class EditClassroomComponent implements OnInit {
   }
   add(){
     this.classroomService.updateClassroom(this.id,this.classroom).subscribe((result) => {
-
+      this.router.navigate(['classrooms']);
       console.log("save");
     }, (err) => {
+      this.router.navigate(['classroom/edit/'+this.id]);
       console.log(err);
     });
   }

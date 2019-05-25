@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule , Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
-
+import {FlashMessagesModule} from 'angular2-flash-messages';
 import { FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ClassroomService } from './services/classroom.service';
@@ -16,6 +16,16 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StudentComponent } from './components/student/student.component';
 import { AddStudentComponent } from './components/add-student/add-student.component';
 import { EditStudentComponent } from './components/edit-student/edit-student.component';
+
+
+
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ConfirmationDialogComponent } from './components/shared/confirmation-dialog/confirmation-dialog.component';
+import { ClassroomStudentsComponent } from './components/classroom-students/classroom-students.component';
+// import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+// import 'bootstrap/dist/css/bootstrap.css';
 const appRoutes: Routes=[
 
 {path:'',component:DashboardComponent },
@@ -24,10 +34,16 @@ const appRoutes: Routes=[
 {path:'classrooms/edit/:id',component:EditClassroomComponent },
 {path:'students',component:StudentComponent },
 {path:'students/create',component:AddStudentComponent },
-{path:'students/edit/:id',component:EditStudentComponent }
+{path:'students/edit/:id',component:EditStudentComponent },
+{path:'classrooms/:classroomID/students',component:ClassroomStudentsComponent }
+
 
 ];  
 @NgModule({
+  entryComponents: [
+    ConfirmationDialogComponent
+  ],
+
   declarations: [
     AppComponent,
     ClassroomComponent,
@@ -37,13 +53,23 @@ const appRoutes: Routes=[
     DashboardComponent,
     StudentComponent,
     AddStudentComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    ConfirmationDialogComponent,
+    ClassroomStudentsComponent
   ],
   imports: [
+    MatDialogModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
     HttpModule,
+    // FlashMessagesModule,
+    FlashMessagesModule.forRoot(),
+    // ConfirmationPopoverModule.forRoot({
+    //   confirmButtonType: 'danger' // set defaults here
+    // }),
     RouterModule.forRoot(appRoutes)
    
   ],
