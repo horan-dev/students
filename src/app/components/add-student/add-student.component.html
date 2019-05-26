@@ -1,5 +1,6 @@
-<div>
+<div >
     <h2>Add Student</h2>
+    <form novalidate #fo="ngForm">
     <div class="form-group">
       <label>First Name:
         <input 
@@ -30,14 +31,15 @@
     </div>
     <div class="form-group">
       <label>Classroom:    
-              <select      [(ngModel)]="student.classroomId"  class="mdb-select md-form">
+              <select  name="classroom"     [(ngModel)]="student.classroomId"  class="mdb-select md-form">
                   <option  [value]="item.id" *ngFor="let item of classrooms">{{item.name}}</option>
                 </select>
         </label><br>
   
     </div>
     <!-- <button (click)="add()">Save</button> -->
-    <a (click)="add()" class="btn btn-primary">Save <i class="fa fa-info-circle" ></i>
+    <a (click)="add(fo)" class="btn btn-primary">Save <i class="fa fa-info-circle" ></i>
     </a>
+  </form>
   </div>
   

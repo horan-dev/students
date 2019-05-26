@@ -31,9 +31,14 @@ export class AddStudentComponent implements OnInit {
   ngOnInit() {
   
   }
-  add(){
+  add({value,valid}){
     console.log("aww");
     console.log(this.student)
+    if (!valid) {
+      this.fashMessagesService.show('Please write correct info',{cssClass:'alert-danger',timeout:6000});
+    
+    }
+    else{
     this.studentService.createStudent(this.student).subscribe((result) => {
       this.router.navigate(['students']);
       console.log("add");
@@ -43,6 +48,6 @@ export class AddStudentComponent implements OnInit {
       console.log(err);
     });
   }
-  
+}
 
 }

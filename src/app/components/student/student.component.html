@@ -1,6 +1,4 @@
-
-  <input [(ngModel)]="searchValue" placeholder=" Search"/>
-  <button (click)="search()"  type="button" data-dismiss="modal" class="btn">Search</button>
+  <input placeholder=" Search" (keyup)="search($event)"/>
 <div class="row">
 
   
@@ -28,11 +26,11 @@
                 <th> 
                   <!-- <a (click)="deleteStudent(item.id)" href="" routerLink="/students" class="btn btn-danger" data-toggle="confirmation" data-popout="true" name="delete">delete <i class="fa fa-info-circle" ></i>
                 </a> -->
-                <a (click)="deleteStudent(item.id)" href="" routerLink="/students" class="btn btn-danger" data-toggle="confirmation" data-popout="true" name="delete">delete <i class="fa fa-info-circle" ></i>
+                <a (click)="deleteStudent(item.id)" href="" routerLink="/students" class="btn btn-danger" data-toggle="confirmation" data-popout="true" name="delete"> <span class="glyphicon glyphicon-trash"></span>delete 
                 </a>
                 <!-- <button type="button" ng-click="delete()" confirm="Are you sure, {{name}}?" confirm-title="Please verify, {{name}}?" confirm-ok="Yes" confirm-cancel="No">Delete</button> -->
                 <!-- <button  (click)="openDialog(item.id)">Del</button> -->
-                <a  href="" routerLink="/students/edit/{{item.id}}" class="btn button">edit <i class="fa fa-info-circle" ></i>
+                <a  href="" routerLink="/students/edit/{{item.id}}" class="btn button"><span class="glyphicon glyphicon-edit"></span>edit
                 </a>
 
 
@@ -42,7 +40,7 @@
             </tbody>
           </table>
   
-      <a href="" routerLink="/students/create" class="btn btn-primary">Create <i class="fa fa-info-circle" ></i>
+      <a href="" routerLink="/students/create" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Create 
                </a>
   
   
@@ -64,7 +62,8 @@
         <button type="button" data-dismiss="modal" class="btn">Cancel</button>
       </div>
     </div>
-
+    <!-- <input (keyup)="onKey($event)">
+    <p>{{values}}</p> -->
 
     <script>
   $('button[name="remove_levels"]').on('click', function(e) {

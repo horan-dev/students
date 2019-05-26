@@ -1,6 +1,8 @@
 <div>
-    <h2>Add Class Room</h2>
-
+    <h2>Add Classroom</h2>
+    <!-- <form novalidate #fo="ngForm"  > -->
+        <form novalidate #fo="ngForm"  >
+            <!-- <form > -->
     <div class="form-group">
         <label> Name:
           <input 
@@ -12,7 +14,7 @@
           minlength="6"
           [(ngModel)]="classroom.name" placeholder=" Name"/>
           <div *ngIf="studentName.errors?.required && studentName.touched" class="alert alert-danger"> First name is required</div>
-  
+
           <div *ngIf="studentName.errors?.minlength && studentName.touched" class="alert alert-danger"> need at least 4 chars</div>
     
         </label>
@@ -22,13 +24,14 @@
         <input [(ngModel)]="classroom.name" placeholder=" Name"/>
       </label><br> -->
       <label>School :
-        <input [(ngModel)]="classroom.school" placeholder="school"/>
+        <input  name="school" [(ngModel)]="classroom.school" placeholder="school"/>
       
       </label>
   
     </div>
     <!-- <button (click)="add()">Save</button> -->
-    <a (click)="add()"  class="btn btn-primary">Save <i class="fa fa-info-circle" ></i>
+    <a  (click)="add(fo)"   class="btn btn-primary">Save <i class="fa fa-info-circle" ></i>
     </a>
+  </form>
   </div>
   

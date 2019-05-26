@@ -4,7 +4,7 @@ import { ClassroomService } from '../../services/classroom.service';
 import { ConfirmationDialogComponent } from '../../components/shared/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { FlashMessagesService} from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-classroom-students',
@@ -17,42 +17,23 @@ export class ClassroomStudentsComponent implements OnInit {
     searchValue=""
     classrooms={}
     students:any[];
-    constructor( public studentService : StudentService,public classroomService : ClassroomService,public dialog: MatDialog
+    constructor( public flashMessagesService : FlashMessagesService, public studentService : StudentService,public classroomService : ClassroomService,public dialog: MatDialog
       , private route: ActivatedRoute, private router: Router) { 
 
         this.classroomID=this.route.snapshot.params['classroomID'];
-        console.log("classroomID");
         console.log(this.classroomID);
-      if (this.isEmptyObject(this.classrooms)){
-        console.log("inside");
-        this.classroomService.getClassrooms().subscribe(classrooms =>{
-          for (let index = 0; index < classrooms.length; index++) {
-            this.classrooms[classrooms[index].id]=classrooms[index];
-            // this.classrooms[classrooms[index].id]="ahmad";
-          }
-    
-        });
-        
-      }
-  
-      console.log("classrooms");
       console.log(this.classrooms);
       let temp=[]
       this.studentService.getClassroomStudents(this.classroomID).subscribe(s =>{
-        console.log("sss");
+      
         console.log(s);
-        for (let index = 0; index < s.length; index++) {
-          const element = s[index];
-          element["classroom"]=this.classrooms[element.classroomId]
-          temp.push(element);
-        }
-       
-        this.students = temp;
+    
+        this.students = s;
        console.log(this.students);
        
       },err=>{
         console.log(err)
-        console.log("eroooooooooooor")
+     
       });
       
     }
@@ -61,6 +42,7 @@ export class ClassroomStudentsComponent implements OnInit {
   
     }
     deleteStudent(id){
+      if(confirm("Are you sure ! :(")){
       console.log(id);
       this.studentService.deleteStudent(id).subscribe((result) => {
         let temp=[]
@@ -71,13 +53,15 @@ export class ClassroomStudentsComponent implements OnInit {
           
         }
         this.students=temp;
+        this.flashMessagesService.show("Student Deleted successfully !  ",{cssClass:'alert-success',timeout:3000});
+     
         console.log("deleted");
       }, (err) => {
         console.log("error");
         console.log(err);
       });
     }
-  
+    }
   
      isEmptyObject(obj) {
       for (var key in obj) {
@@ -86,17 +70,18 @@ export class ClassroomStudentsComponent implements OnInit {
       return true;
     }
   
-    search(){
-      let temp=[]
+    search(event: any) {
+      let temp = []
+      this.searchValue= event.target.value ;
       if(this.searchValue){
         this.studentService.search(this.searchValue).subscribe((result) => {
-          for (let index = 0; index <result.length; index++) {
-            const element =result[index];
-            element["classroom"]=this.classrooms[element.classroomId]
-            temp.push(element);
-          }
+          // for (let index = 0; index <result.length; index++) {
+          //   const element =result[index];
+          //   element["classroom"]=this.classrooms[element.classroomId]
+          //   temp.push(element);
+          // }
          
-          this.students = temp;
+          this.students = result;
         }, (err) => {
        
         });
@@ -104,13 +89,13 @@ export class ClassroomStudentsComponent implements OnInit {
       else{
      
         this.studentService.getClassroomStudents(this.classroomID).subscribe(s =>{
-          for (let index = 0; index < s.length; index++) {
-            const element = s[index];
-            element["classroom"]=this.classrooms[element.classroomId]
-            temp.push(element);
-          }
+          // for (let index = 0; index < s.length; index++) {
+          //   const element = s[index];
+          //   element["classroom"]=this.classrooms[element.classroomId]
+          //   temp.push(element);
+          // }
          
-          this.students = temp;
+          this.students = s;
          console.log(this.students);
          
         });
@@ -137,9 +122,5 @@ export class ClassroomStudentsComponent implements OnInit {
         });
       }
   
-    // public openConfirmationDialog() {
-    //   this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to ... ?')
-    //   .then((confirmed) => console.log('User confirmed:', confirmed))
-    //   .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-    // }
+ 
   }

@@ -16,7 +16,16 @@ export class ClassroomService {
 
    }
 
-
+   search(val){
+    console.log(this.endpoint);
+     return this.http.get
+     (this.endpoint+'/classrooms/search/'+val)
+       .map(res=>res.json(),err=>{
+         console.log(err);
+       })
+     ;
+    
+   }
   getClassrooms(){
     console.log(this.endpoint);
      return this.http.get

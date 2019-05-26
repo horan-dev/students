@@ -9,7 +9,7 @@ import { FlashMessagesService} from 'angular2-flash-messages';
 })
 export class ClassroomComponent implements OnInit {
   classrooms:any[];
-  searchValue=""
+  searchValue="";
   constructor( public classroomService : ClassroomService, private route: ActivatedRoute, private router: Router
     , public flashMessagesService:FlashMessagesService) { 
     this.classroomService.getClassrooms().subscribe(classrooms =>{
@@ -22,6 +22,28 @@ export class ClassroomComponent implements OnInit {
   
   ngOnInit() {
 
+  }
+
+  search(event: any) {
+    let temp = []
+    this.searchValue= event.target.value ;
+    if (this.searchValue) {
+      this.classroomService.search(this.searchValue).subscribe((result) => {
+
+        this.classrooms = result;
+      }, (err) => {
+
+      });
+    }
+    else {
+
+      this.classroomService.getClassrooms().subscribe(s => {
+
+
+        console.log(this.students);
+
+      });
+    }
   }
   deleteClassroom(id){
     if(confirm("Are you sure ! :(")){
