@@ -25,7 +25,8 @@ body {
 }
 
 #wrapper {
-    padding-top: 0px;
+    /* padding-top:112px; */
+    padding-top:1px;
     padding-left: 0;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
@@ -57,11 +58,13 @@ body {
     height: 100%;
     margin-left: -225px;
     overflow-y: auto;
-    background: #f8f8f8;
+    /* background: #f8f8f8; */
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+   background: #92bce0
+
 }
 
 #sidebar-wrapper .sidebar-nav {
@@ -163,5 +166,9 @@ body {
 
 .sidebar-nav li:nth-child(5) a {
     background: #245682 !important;
+    color: #fff !important;
+}
+.navbar-wrapper{
+    background: #3071a9;
     color: #fff !important;
 }
